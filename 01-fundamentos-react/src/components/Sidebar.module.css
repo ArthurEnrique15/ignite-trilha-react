@@ -46,7 +46,7 @@
 
 .sidebar footer a {
   background: transparent;
-  color: var(--brand-500);
+  color: var(--green-500);
   border: 1px solid var(--green-500);
   border-radius: 8px;
   height: 50px;
