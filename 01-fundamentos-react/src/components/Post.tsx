@@ -1,8 +1,9 @@
+import { PostInfo } from '../types/post';
 import { Avatar } from './Avatar';
 import { Comment } from './Comment';
 import styles from './Post.module.css';
 
-export function Post() {
+export function Post(postInfo: Omit<PostInfo, 'id'>) {
   return (
     <article className={styles.post}>
       <header>
