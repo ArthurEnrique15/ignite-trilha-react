@@ -8,3 +8,24 @@
   gap: 2rem;
   align-items: flex-start;
 }
+
+/* aplica a estilização quando a tela for menor que 768px */
+@media (max-width: 768px) {
+  /* 
+    o rem é uma medida relativa ao tamanho da fonte do html
+    isso permite que alterando o tamanho da fonte tudo seja alterado também
+
+    considerando uma fonte padrão de 16px, o tamanho de fonte que queremos no mobile é 14px 
+    então precisamos calcular isso em % para obtermos valores que funcionam em qualquer tamanho de fonte
+
+    se 16 é 100%, quanto é 14? 87,5%
+  */
+  html {
+    font-size: 87.5%;
+  }
+
+  /* coloca apenas 1 coluna, fazendo com que o conteúdo caiba na tela mobile */
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+}
