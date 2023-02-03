@@ -33,6 +33,15 @@ export function Post({ author, content, publishedAt }: Omit<PostInfo, 'id'>) {
     setNewCommentText(event.target.value);
   }
 
+  function deleteComment(commentToDelete: string) {
+    const commentsWithoutDeletedOne = comments.filter(comment => {
+      return comment !== commentToDelete;
+    })
+
+    // * imutabilidade: nunca alterar o valor das variáveis, sempre criar uma nova
+    setComments(commentsWithoutDeletedOne);
+  }
+
   return (
     <article className={styles.post}>
       <header>
@@ -76,7 +85,13 @@ export function Post({ author, content, publishedAt }: Omit<PostInfo, 'id'>) {
 
       <div className={styles.commentList}>
         { comments.map(comment => { 
-          return <Comment key={comment} content={comment} /> 
+          return (
+            <Comment
+              key={comment}
+              content={comment}
+              onDeleteComment={deleteComment}
+            />
+          )
         })}
       </div>
     </article>
