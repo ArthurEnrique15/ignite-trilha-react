@@ -5,7 +5,7 @@ import { Post } from './components/Post'
 import './global.css'
 
 import styles from './App.module.css'
-import { posts } from './contants/posts'
+import { posts } from './constants/posts'
 
 export function App() {
   return (
