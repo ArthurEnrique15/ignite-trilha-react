@@ -17,7 +17,8 @@ export function Comment({ content, onDeleteComment }: CommentProps) {
   }
 
   function handleLikeComment() {
-    setLikeCount(likeCount + 1);
+    // * sempre que precisar atualizar o estado baseado no estado anterior, usar uma função
+    setLikeCount((state) => state + 1);
   }
 
   return (
