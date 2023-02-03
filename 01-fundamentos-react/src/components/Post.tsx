@@ -22,7 +22,7 @@ export function Post({ author, content, publishedAt }: Omit<PostInfo, 'id'>) {
   });
 
   // * utilizar handle para funções que são disparadas por alguma ação do usuário
-  function handleCrateNewComment(event: any) {
+  function handleCreateNewComment(event: any) {
     // * impede que a página seja atualizada no submit do form
     event.preventDefault()
     setComments([...comments, newCommentText]);
@@ -75,7 +75,7 @@ export function Post({ author, content, publishedAt }: Omit<PostInfo, 'id'>) {
         })}
       </div>
 
-      <form onSubmit={handleCrateNewComment} className={styles.commentForm}>
+      <form onSubmit={handleCreateNewComment} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
 
         <textarea
