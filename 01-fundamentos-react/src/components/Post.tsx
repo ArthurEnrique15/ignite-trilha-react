@@ -1,6 +1,6 @@
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
-import { useState } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 
 import { PostInfo } from '../types/post';
 import { Avatar } from './Avatar';
@@ -22,19 +22,19 @@ export function Post({ author, content, publishedAt }: Omit<PostInfo, 'id'>) {
   });
 
   // * utilizar handle para funções que são disparadas por alguma ação do usuário
-  function handleCreateNewComment(event: any) {
+  function handleCreateNewComment(event: FormEvent) {
     // * impede que a página seja atualizada no submit do form
     event.preventDefault()
     setComments([...comments, newCommentText]);
     setNewCommentText('');
   }
 
-  function handleNewCommentChange(event: any) {
+  function handleNewCommentChange(event: ChangeEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity('');
     setNewCommentText(event.target.value);
   }
 
-  function handleNewCommentInvalid(event: any) {
+  function handleNewCommentInvalid(event: InvalidEvent<HTMLTextAreaElement>) {
     event.target.setCustomValidity('Esse campo é obrigatório!');
   }
 
