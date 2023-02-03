@@ -1,5 +1,6 @@
 import { format, formatDistanceToNow } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
+import { useState } from 'react';
 
 import { PostInfo } from '../types/post';
 import { Avatar } from './Avatar';
@@ -7,7 +8,12 @@ import { Comment } from './Comment';
 import styles from './Post.module.css';
 
 export function Post({ author, content, publishedAt }: Omit<PostInfo, 'id'>) {
-  // essas letras da string estão na documentação do format do date-fns
+  const [comments, setComments] = useState([
+    1,
+    2,
+  ]);
+
+  // * essas letras da string estão na documentação do format do date-fns
   const publishedDateFormatted = format(publishedAt, "d 'de' LLLL 'às' HH:mm'h'", {
     locale: ptBR,
   });
@@ -16,6 +22,13 @@ export function Post({ author, content, publishedAt }: Omit<PostInfo, 'id'>) {
     locale: ptBR,
     addSuffix: true
   });
+
+  // * utilizar handle para funções que são disparadas por alguma ação do usuário
+  function handleCrateNewComment(event: any) {
+    // * impede que a página seja atualizada no submit do form
+    event.preventDefault()
+    setComments([...comments, comments.length + 1]);
+  }
 
   return (
     <article className={styles.post}>
@@ -43,7 +56,7 @@ export function Post({ author, content, publishedAt }: Omit<PostInfo, 'id'>) {
         })}
       </div>
 
-      <form className={styles.commentForm}>
+      <form onSubmit={handleCrateNewComment} className={styles.commentForm}>
         <strong>Deixe seu feedback</strong>
 
         <textarea placeholder="Deixe um comentário" />
@@ -54,9 +67,7 @@ export function Post({ author, content, publishedAt }: Omit<PostInfo, 'id'>) {
       </form>
 
       <div className={styles.commentList}>
-        <Comment />
-        <Comment />
-        <Comment />
+        { comments.map(comment => { return <Comment /> })}
       </div>
     </article>
   )
