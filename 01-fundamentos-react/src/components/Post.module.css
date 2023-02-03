@@ -1,7 +1,7 @@
 .post {
   background: var(--gray-800);
   border-radius: 8px;
-  padding: 2.5rem;
+  padding: 2.5rem 2.5rem 1.5rem 2.5rem;
 }
 
 /* Estiliza todo post que tenha outro post após ele */
@@ -86,15 +86,18 @@
 }
 
 .commentForm footer {
-  visibility: hidden;
-  max-height: 0;
+  /* visibility: hidden;
+  max-height: 0; */
+  display: flex;
+  align-items: end; 
+  justify-content: flex-end;
 }
 
 /* Se houver foco em algum elemento dentro do commentForm, estiliza o footer */
-.commentForm:focus-within footer {
+/* .commentForm:focus-within footer {
   visibility: visible;
   max-height: none;
-}
+} */
 
 .commentForm button[type="submit"] {
   padding: 1rem 1.5rem;
@@ -119,5 +122,5 @@
 }
 
 .commentList {
-  margin-top: 2rem;
+  margin-top: 1.5rem;
 }
