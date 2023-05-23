@@ -23,6 +23,14 @@
       "category": "Educação",
       "price": 1980,
       "createdAt": "2022-07-29T19:24:44.505Z"
+    },
+    {
+      "description": "teste de transação",
+      "price": 500,
+      "category": "Alguma coisa",
+      "type": "income",
+      "createdAt": "2023-05-23T01:13:22.884Z",
+      "id": 4
     }
   ]
 }
