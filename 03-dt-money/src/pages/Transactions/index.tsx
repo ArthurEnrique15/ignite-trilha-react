@@ -1,6 +1,6 @@
 import { useContext } from 'react'
 import { Header } from '../../components/Header'
-import { SearchForm } from '../../components/SearchForm'
+import { SearchForm } from './components/SearchForm'
 import { Summary } from '../../components/Summary'
 import { TransactionsContext } from '../../contexts/TransactionsContext'
 import { dateFormatter, priceFormatter } from '../../utils/formatter'
