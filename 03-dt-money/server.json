@@ -31,6 +31,14 @@
       "type": "income",
       "createdAt": "2023-05-23T01:13:22.884Z",
       "id": 4
+    },
+    {
+      "description": "aaaaa",
+      "price": 10000,
+      "category": "dsad",
+      "type": "outcome",
+      "createdAt": "2023-05-23T01:19:58.299Z",
+      "id": 5
     }
   ]
 }
