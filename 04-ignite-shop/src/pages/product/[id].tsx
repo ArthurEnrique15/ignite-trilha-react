@@ -8,6 +8,7 @@ import {
   ProductContainer,
   ProductDetails,
 } from '../../styles/pages/product'
+import { useRouter } from 'next/router'
 
 interface ProductProps {
   product: {
@@ -20,6 +21,12 @@ interface ProductProps {
 }
 
 export default function Product({ product }: ProductProps) {
+  // const { isFallback } = useRouter()
+
+  // if (isFallback) {
+  //   return <p>Loading...</p>
+  // }
+
   return (
     <ProductContainer>
       <ImageContainer>
@@ -40,13 +47,14 @@ export default function Product({ product }: ProductProps) {
 
 // como no ssg a página é gerada no build, não temos acesso ao id do produto, então precisamos usar o getStaticPaths
 export const getStaticPaths: GetStaticPaths = async () => {
+  // buscar os produtos mais acessados / mais vendidos ou enviar o array vazio, deixando o fallback true
   return {
     paths: [
       {
-        params: { id: 'prod_MLH5Wy0Y97hDAC' },
+        params: { id: 'prod_O11wPNjzNbRCzm' },
       },
     ],
-    fallback: false,
+    fallback: 'blocking',
   }
 }
 
