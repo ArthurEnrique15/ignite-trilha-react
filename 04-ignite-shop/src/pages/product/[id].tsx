@@ -1,6 +1,9 @@
+import axios from 'axios'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
 import Stripe from 'stripe'
+import { useState } from 'react'
+
 import { stripe } from '../../lib/stripe'
 
 import {
@@ -8,7 +11,6 @@ import {
   ProductContainer,
   ProductDetails,
 } from '../../styles/pages/product'
-import { useRouter } from 'next/router'
 
 interface ProductProps {
   product: {
@@ -17,6 +19,7 @@ interface ProductProps {
     imageUrl: string
     price: string
     description: string
+    defaultPriceId: string
   }
 }
 
@@ -26,6 +29,29 @@ export default function Product({ product }: ProductProps) {
   // if (isFallback) {
   //   return <p>Loading...</p>
   // }
+
+  const [isCreatingCheckoutSession, setIsCreatingCheckoutSession] =
+    useState(false)
+
+  async function handleBuyButton() {
+    try {
+      setIsCreatingCheckoutSession(true)
+
+      // a url base do cliente e do servidor é a mesma, por isso basta colocar o /api/checkout
+      const response = await axios.post('/api/checkout', {
+        priceId: product.defaultPriceId,
+      })
+
+      const { checkoutUrl } = response.data
+
+      window.location.href = checkoutUrl
+    } catch (err) {
+      // conectar com uma ferramenta de observabilidade (sentry, datadog, etc)
+      setIsCreatingCheckoutSession(false)
+
+      alert('Falha ao redirecionar ao checkout!')
+    }
+  }
 
   return (
     <ProductContainer>
@@ -39,7 +65,9 @@ export default function Product({ product }: ProductProps) {
 
         <p>{product.description}</p>
 
-        <button>Comprar agora</button>
+        <button disabled={isCreatingCheckoutSession} onClick={handleBuyButton}>
+          Comprar agora
+        </button>
       </ProductDetails>
     </ProductContainer>
   )
@@ -80,8 +108,9 @@ export const getStaticProps: GetStaticProps<any, { id: string }> = async ({
           currency: 'BRL',
         }).format(price.unit_amount / 100),
         description: product.description,
+        defaultPriceId: price.id,
       },
     },
-    revalidate: 60 * 60 * 1, // 1 hours
+    revalidate: 60 * 60 * 1, // 1 hour
   }
 }
