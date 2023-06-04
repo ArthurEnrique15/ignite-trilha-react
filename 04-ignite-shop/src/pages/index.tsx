@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useKeenSlider } from 'keen-slider/react'
@@ -28,26 +29,31 @@ export default function Home({ products }: HomeProps) {
   })
 
   return (
-    <HomeContainer ref={sliderRef} className="keen-slider">
-      {products.map((product) => {
-        return (
-          <Link
-            href={`/product/${product.id}`}
-            key={product.id}
-            prefetch={false} // next faz prefetch de links quando eles aparecem na tela, se tiver muitos links pode ser um problema, então melhor desabilitar
-          >
-            <Product className="keen-slider__slide">
-              <Image src={product.imageUrl} width={520} height={480} alt="" />
+    <>
+      <Head>
+        <title>Home | Ignite Shop</title>
+      </Head>
+      <HomeContainer ref={sliderRef} className="keen-slider">
+        {products.map((product) => {
+          return (
+            <Link
+              href={`/product/${product.id}`}
+              key={product.id}
+              prefetch={false} // next faz prefetch de links quando eles aparecem na tela, se tiver muitos links pode ser um problema, então melhor desabilitar
+            >
+              <Product className="keen-slider__slide">
+                <Image src={product.imageUrl} width={520} height={480} alt="" />
 
-              <footer>
-                <strong>{product.name}</strong>
-                <span>{product.price}</span>
-              </footer>
-            </Product>
-          </Link>
-        )
-      })}
-    </HomeContainer>
+                <footer>
+                  <strong>{product.name}</strong>
+                  <span>{product.price}</span>
+                </footer>
+              </Product>
+            </Link>
+          )
+        })}
+      </HomeContainer>
+    </>
   )
 }
 
